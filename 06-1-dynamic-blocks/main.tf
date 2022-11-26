@@ -2,9 +2,13 @@ provider "aws" {
   region = "eu-central-1"
 }
 
+resource "aws_default_vpc" "default" {} # This need to be added since AWS Provider v4.29+ to get VPC id
+
+
 resource "aws_security_group" "web" {
     name = "Web Server SG"
     description = "Allow HTTP and HTTPS requests"
+    vpc_id      = aws_default_vpc.default.id
 
     dynamic "ingress" {
         for_each = ["8080", "80", "443", "1000"]
