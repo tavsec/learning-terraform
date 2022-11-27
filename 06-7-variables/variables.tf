@@ -24,3 +24,12 @@ variable "ingress_ports" {
     }
   ]
 }
+
+variable "password" {
+  description = "Password that should be atleast 10 characters long"
+  type = string
+  validation {
+    condition = length(var.password) >= 10
+    error_message = "Password should be atleas 10 characters long"
+  }
+}
